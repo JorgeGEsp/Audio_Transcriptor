@@ -1,0 +1,5 @@
+{
+  "name": "VozScript - Transcripción Inteligente",
+  "description": "Transcribe llamadas, grabaciones y vídeos con detección de interlocutores mediante IA avanzada.",
+  "requestFramePermissions": ["microphone"]
+}
