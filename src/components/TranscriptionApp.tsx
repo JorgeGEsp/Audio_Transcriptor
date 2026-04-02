@@ -24,6 +24,7 @@ export default function TranscriptionApp() {
   const [error, setError] = useState<string | null>(null);
   const [isRecording, setIsRecording] = useState(false);
   const [useHighThinking, setUseHighThinking] = useState(true);
+  const [includeAnalysis, setIncludeAnalysis] = useState(false);
   const [filename, setFilename] = useState("transcripcion");
   const [autoDownload, setAutoDownload] = useState(false);
   
@@ -109,7 +110,7 @@ export default function TranscriptionApp() {
 
     try {
       const base64 = await fileToBase64(file);
-      const result = await transcribeMedia(base64, file.type, numSpeakers, useHighThinking);
+      const result = await transcribeMedia(base64, file.type, numSpeakers, useHighThinking, includeAnalysis);
       setTranscription(result);
       
       if (autoDownload) {
@@ -200,6 +201,22 @@ export default function TranscriptionApp() {
                   className={`w-10 h-5 rounded-full border border-black relative transition-colors ${useHighThinking ? 'bg-black' : 'bg-transparent'}`}
                 >
                   <div className={`absolute top-1/2 -translate-y-1/2 w-3 h-3 rounded-full border border-black transition-all ${useHighThinking ? 'right-1 bg-white' : 'left-1 bg-black'}`} />
+                </button>
+              </div>
+
+              <div className="flex items-center justify-between p-4 border border-black rounded-lg bg-indigo-50/50">
+                <div className="flex items-center gap-2">
+                  <Users size={16} className="text-indigo-600" />
+                  <div className="flex flex-col">
+                    <span className="text-[10px] font-mono uppercase font-bold">Análisis Psicológico</span>
+                    <span className="text-[8px] opacity-60">Emoción e intención por frase</span>
+                  </div>
+                </div>
+                <button 
+                  onClick={() => setIncludeAnalysis(!includeAnalysis)}
+                  className={`w-10 h-5 rounded-full border border-black relative transition-colors ${includeAnalysis ? 'bg-indigo-600 border-indigo-600' : 'bg-transparent'}`}
+                >
+                  <div className={`absolute top-1/2 -translate-y-1/2 w-3 h-3 rounded-full border border-black transition-all ${includeAnalysis ? 'right-1 bg-white border-white' : 'left-1 bg-black'}`} />
                 </button>
               </div>
 
